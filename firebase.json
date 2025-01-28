@@ -1,0 +1,54 @@
+{
+  "hosting": {
+    "public": "frontend/build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/smartcontract", 
+        "function": "chat_handler" 
+      },
+      {
+        "source": "/webhook",
+        "function": "stripeNode"
+      },
+      {
+        "source": "/api/**",
+        "function": "stripeNode"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "functions": [
+    {
+      "source": "functions/python-main",
+      "codebase": "chat_handler",
+      "runtime": "python310",
+      "ignore": [
+        "venv",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    },
+    {
+      "source": "functions/node-index",
+      "codebase": "stripenode",
+      "runtime": "nodejs16",
+      "ignore": [
+        "venv",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ]
+}
+
+
